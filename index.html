@@ -1,52 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/inicio.css">
-    <link rel="stylesheet" href="css/general.css">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <title>LeBox</title>
 </head>
 <body>
 
-<div class="imagen-fondo">
-  <div class="degradado"></div>
-</div>
-
-
-<div class="container">
-
-  <!-- LOGIN -->
-  <div class="card" id="loginCard">
-    <h2>Iniciar sesión</h2>
-<input type="email" id="emailLogin" placeholder="Email">
-<input type="password" id="passwordLogin" placeholder="Contraseña">
-<button onclick="login()">Entrar</button>
-
-    <p onclick="showRegister()">¿No tenés cuenta? Registrate</p>
+  <!-- FONDO ANIMADO -->
+  <div class="bg-layer">
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+    <div class="bg-grid"></div>
   </div>
 
-  <!-- REGISTRO -->
-  <div class="card" id="registerCard" style="display:none;">
-    <h2>Registrarse</h2>
-<input type="email" id="emailRegister" placeholder="Email">
-<input type="password" id="passwordRegister" placeholder="Contraseña">
-<input type="password" id="confirmRegister" placeholder="Confirmar contraseña">
-<button onclick="register()">Registrarse</button>
-    <p onclick="showLogin()">¿Ya tenés cuenta? Iniciar sesión</p>
+  <!-- POSTERS FLOTANTES (decoración) -->
+  <div class="posters-deco" id="posters-deco"></div>
+
+  <!-- CONTENIDO -->
+  <div class="page-wrap">
+
+    <!-- LOGO -->
+    <div class="logo-wrap">
+      <span class="logo">LeBox</span>
+      <span class="logo-tagline">Tu universo cinematográfico</span>
+    </div>
+
+    <!-- CARD PRINCIPAL -->
+    <div class="auth-card" id="auth-card">
+
+      <!-- LOGIN -->
+      <div class="auth-panel" id="loginCard">
+        <h2 class="auth-title">Bienvenido</h2>
+        <p class="auth-sub">Ingresá tu cuenta para continuar</p>
+
+        <div class="input-group">
+          <label class="input-label">Email</label>
+          <div class="input-wrap">
+            <span class="input-icon">✉</span>
+            <input type="email" id="emailLogin" placeholder="tu@email.com" autocomplete="email">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Contraseña</label>
+          <div class="input-wrap">
+            <span class="input-icon">&#9679;</span>
+            <input type="password" id="passwordLogin" placeholder="••••••••" autocomplete="current-password">
+            <button class="toggle-pw" id="toggle-pw-login" type="button" tabindex="-1">
+              <span class="eye-icon">&#128065;</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="error-msg" id="login-error"></div>
+
+        <button class="btn-main" id="login-btn" onclick="login()">
+          <span class="btn-text">Entrar</span>
+          <span class="btn-loader" id="login-loader"></span>
+        </button>
+
+        <p class="switch-link">¿No tenés cuenta? <span onclick="showRegister()">Registrate</span></p>
+      </div>
+
+      <!-- REGISTRO -->
+      <div class="auth-panel" id="registerCard" style="display:none">
+        <h2 class="auth-title">Crear cuenta</h2>
+        <p class="auth-sub">Empezá tu experiencia en LeBox</p>
+
+        <div class="input-group">
+          <label class="input-label">Email</label>
+          <div class="input-wrap">
+            <span class="input-icon">✉</span>
+            <input type="email" id="emailRegister" placeholder="tu@email.com" autocomplete="email">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Contraseña</label>
+          <div class="input-wrap">
+            <span class="input-icon">&#9679;</span>
+            <input type="password" id="passwordRegister" placeholder="••••••••" autocomplete="new-password">
+            <button class="toggle-pw" id="toggle-pw-reg" type="button" tabindex="-1">
+              <span class="eye-icon">&#128065;</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Confirmar contraseña</label>
+          <div class="input-wrap">
+            <span class="input-icon">&#9679;</span>
+            <input type="password" id="confirmRegister" placeholder="••••••••" autocomplete="new-password">
+          </div>
+        </div>
+
+        <div class="error-msg" id="register-error"></div>
+
+        <button class="btn-main" id="register-btn" onclick="register()">
+          <span class="btn-text">Registrarse</span>
+          <span class="btn-loader" id="register-loader"></span>
+        </button>
+
+        <p class="switch-link">¿Ya tenés cuenta? <span onclick="showLogin()">Iniciá sesión</span></p>
+      </div>
+
+    </div>
   </div>
 
-</div>
-
-<div id="usernameModal" class="modal" style="display:none;">
-  <div class="modal-content">
-    <h2>Elegí tu usuario</h2>
-    <input id="usernameInput" placeholder="Tu nombre">
-    <button onclick="guardarUsername()">Guardar</button>
+  <!-- MODAL USERNAME -->
+  <div id="usernameModal" class="modal-overlay" style="display:none">
+    <div class="modal-card">
+      <div class="modal-icon">&#9733;</div>
+      <h2 class="modal-title">Último paso</h2>
+      <p class="modal-sub">Elegí cómo te van a ver los demás</p>
+      <div class="input-wrap">
+        <span class="input-icon">@</span>
+        <input type="text" id="usernameInput" placeholder="tu_usuario" autocomplete="off" maxlength="20">
+      </div>
+      <div class="error-msg" id="username-error"></div>
+      <button class="btn-main" onclick="guardarUsername()">
+        <span class="btn-text">Comenzar</span>
+      </button>
+    </div>
   </div>
-</div>
 
-<script  type="module" src="js/app.js"></script>
+  <script type="module" src="js/app.js"></script>
+
+  <script>
+    // Toggle show/hide password
+    document.getElementById("toggle-pw-login").addEventListener("click", function() {
+      const input = document.getElementById("passwordLogin");
+      input.type = input.type === "password" ? "text" : "password";
+    });
+    document.getElementById("toggle-pw-reg").addEventListener("click", function() {
+      const input = document.getElementById("passwordRegister");
+      input.type = input.type === "password" ? "text" : "password";
+    });
+
+    // Posters decorativos con TMDB
+    const API_KEY = "446e4bd3b832f95dbc4a0839a483513c";
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=es-ES&page=1`)
+      .then(r => r.json())
+      .then(data => {
+        const wrap = document.getElementById("posters-deco");
+        const movies = data.results.filter(m => m.poster_path).slice(0, 12);
+        movies.forEach((m, i) => {
+          const img = document.createElement("img");
+          img.src = `https://image.tmdb.org/t/p/w185${m.poster_path}`;
+          img.className = "deco-poster";
+          img.style.setProperty("--i", i);
+          img.alt = "";
+          img.loading = "lazy";
+          wrap.appendChild(img);
+        });
+      })
+      .catch(() => {});
+
+    // Transición suave entre login/register
+    window.showRegister = function() {
+      const card = document.getElementById("auth-card");
+      card.style.opacity = "0";
+      card.style.transform = "translateY(8px)";
+      setTimeout(() => {
+        document.getElementById("loginCard").style.display = "none";
+        document.getElementById("registerCard").style.display = "flex";
+        card.style.opacity = "1";
+        card.style.transform = "translateY(0)";
+      }, 200);
+    };
+
+    window.showLogin = function() {
+      const card = document.getElementById("auth-card");
+      card.style.opacity = "0";
+      card.style.transform = "translateY(8px)";
+      setTimeout(() => {
+        document.getElementById("registerCard").style.display = "none";
+        document.getElementById("loginCard").style.display = "flex";
+        card.style.opacity = "1";
+        card.style.transform = "translateY(0)";
+      }, 200);
+    };
+  </script>
+
 </body>
 </html>
