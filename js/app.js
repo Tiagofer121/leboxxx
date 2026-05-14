@@ -1,118 +1,204 @@
-// 🔥 IMPORTS
+// ========================
+// IMPORTS FIREBASE
+// ========================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-import { 
-  getAuth, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword 
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-import { 
-  getFirestore, 
-  doc, 
-  getDoc, 
-  setDoc 
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// 🔥 CONFIG (PONÉ LA TUYA)
+
+// ========================
+// CONFIG
+// ========================
 const firebaseConfig = {
   apiKey: "AIzaSyAVfEOW8sR-bRZ6gh5udkLwZ6g9bykNCoA",
   authDomain: "lebox-fee56.firebaseapp.com",
   projectId: "lebox-fee56",
 };
 
-// 🔥 INIT
-const app = initializeApp(firebaseConfig);
+const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
+const db   = getFirestore(app);
 
-// 🔁 CAMBIO DE CARDS
-window.showRegister = function() {
-  document.getElementById("loginCard").style.display = "none";
-  document.getElementById("registerCard").style.display = "block";
-};
 
-window.showLogin = function() {
-  document.getElementById("registerCard").style.display = "none";
-  document.getElementById("loginCard").style.display = "block";
-};
+// ========================
+// AUTO REDIRECT — si ya hay sesión activa
+// ========================
+onAuthStateChanged(auth, async (user) => {
+  if (!user) return;
 
-// 🔐 REGISTRO
-window.register = function() {
-  const email = document.getElementById("emailRegister").value;
-  const password = document.getElementById("passwordRegister").value;
+  try {
+    const docRef  = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
 
-  if (!email || !password) {
-    alert("Completá los campos");
-    return;
-  }
-
-  createUserWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
-      const user = userCredential.user;
-
-      // 👇 mostrar modal directo (nuevo usuario)
+    if (docSnap.exists()) {
+      // Tiene username → directo a inicio
+      const userData = docSnap.data();
+      localStorage.setItem("username", userData.username);
+      window.location.href = "inicio.html";
+    } else {
+      // Autenticado pero sin username → modal
       document.getElementById("usernameModal").style.display = "flex";
-    })
-    .catch(err => alert(err.message));
-};
+    }
+  } catch(e) {
+    console.error("Error comprobando sesión:", e);
+  }
+});
 
-// 🔐 LOGIN
-window.login = function() {
-  const email = document.getElementById("emailLogin").value;
+
+// ========================
+// HELPERS
+// ========================
+function setLoading(btnId, loaderId, state) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  btn.classList.toggle("loading", state);
+  btn.disabled = state;
+}
+
+function showError(elementId, message) {
+  const el = document.getElementById(elementId);
+  if (el) el.textContent = message;
+}
+
+function clearError(elementId) {
+  const el = document.getElementById(elementId);
+  if (el) el.textContent = "";
+}
+
+function friendlyError(code) {
+  const map = {
+    "auth/invalid-email":          "El email no es válido.",
+    "auth/user-not-found":         "No existe una cuenta con ese email.",
+    "auth/wrong-password":         "Contraseña incorrecta.",
+    "auth/email-already-in-use":   "Ese email ya está registrado.",
+    "auth/weak-password":          "La contraseña debe tener al menos 6 caracteres.",
+    "auth/too-many-requests":      "Demasiados intentos. Esperá un momento.",
+    "auth/network-request-failed": "Sin conexión. Revisá tu red.",
+    "auth/invalid-credential":     "Email o contraseña incorrectos.",
+  };
+  return map[code] || "Ocurrió un error. Intentá de nuevo.";
+}
+
+
+// ========================
+// LOGIN
+// ========================
+window.login = async function() {
+  clearError("login-error");
+
+  const email    = document.getElementById("emailLogin").value.trim();
   const password = document.getElementById("passwordLogin").value;
 
   if (!email || !password) {
-    alert("Completá los campos");
+    showError("login-error", "Completá todos los campos.");
     return;
   }
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
-      const user = userCredential.user;
+  setLoading("login-btn", "login-loader", true);
 
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
+  try {
+    const cred = await signInWithEmailAndPassword(auth, email, password);
+    const user = cred.user;
 
-      if (!docSnap.exists()) {
-        // 👇 si no tiene username → mostrar modal
-        document.getElementById("usernameModal").style.display = "flex";
-      } else {
+    const docRef  = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
 
-  const userData = docSnap.data();
-
-  localStorage.setItem(
-    "username",
-    userData.username
-  );
-
-  window.location.href = "../inicio.html";
-
-}
-    })
-    .catch(err => alert(err.message));
+    if (!docSnap.exists()) {
+      document.getElementById("usernameModal").style.display = "flex";
+    } else {
+      const userData = docSnap.data();
+      localStorage.setItem("username", userData.username);
+      window.location.href = "inicio.html";
+    }
+  } catch(err) {
+    showError("login-error", friendlyError(err.code));
+    setLoading("login-btn", "login-loader", false);
+  }
 };
 
-// 💾 GUARDAR USERNAME
+
+// ========================
+// REGISTRO
+// ========================
+window.register = async function() {
+  clearError("register-error");
+
+  const email    = document.getElementById("emailRegister").value.trim();
+  const password = document.getElementById("passwordRegister").value;
+  const confirm  = document.getElementById("confirmRegister").value;
+
+  if (!email || !password || !confirm) {
+    showError("register-error", "Completá todos los campos.");
+    return;
+  }
+
+  if (password !== confirm) {
+    showError("register-error", "Las contraseñas no coinciden.");
+    return;
+  }
+
+  if (password.length < 6) {
+    showError("register-error", "La contraseña debe tener al menos 6 caracteres.");
+    return;
+  }
+
+  setLoading("register-btn", "register-loader", true);
+
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    document.getElementById("usernameModal").style.display = "flex";
+  } catch(err) {
+    showError("register-error", friendlyError(err.code));
+    setLoading("register-btn", "register-loader", false);
+  }
+};
+
+
+// ========================
+// GUARDAR USERNAME
+// ========================
 window.guardarUsername = async function() {
-  const username = document.getElementById("usernameInput").value;
+  clearError("username-error");
+
+  const username = document.getElementById("usernameInput").value.trim();
 
   if (!username) {
-    alert("Escribí un usuario");
+    showError("username-error", "Escribí un nombre de usuario.");
+    return;
+  }
+
+  if (username.length < 3) {
+    showError("username-error", "Debe tener al menos 3 caracteres.");
     return;
   }
 
   const user = auth.currentUser;
+  if (!user) {
+    showError("username-error", "Sesión expirada. Volvé a iniciar sesión.");
+    return;
+  }
 
-  await setDoc(doc(db, "users", user.uid), {
-    username: username,
-    email: user.email
-  });
+  try {
+    await setDoc(doc(db, "users", user.uid), {
+      username: username,
+      email: user.email
+    });
 
-localStorage.setItem(
-  "username",
-  username
-);
-
-  window.location.href = "../inicio.html";
+    localStorage.setItem("username", username);
+    window.location.href = "inicio.html";
+  } catch(err) {
+    showError("username-error", "Error guardando el usuario. Intentá de nuevo.");
+  }
 };
