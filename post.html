@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/post.css">
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/loader.css">
+
+    <title>Feed — LeBox</title>
+</head>
+<body>
+
+
+<div id="loader" class="loader">
+<div class="loader-triangle-9">
+    <div></div>
+    <div></div>
+</div>
+</div>
+
+
+<div class="titulo-subtitulo">
+  <h1 class="titulo">Cinemar</h1>
+  <p class="subtitulo">Tu espacio para opinar sobre películas</p>
+</div>
+
+  <!-- CREAR POST -->
+  <div class="create-post-wrapper">
+    <div class="create-post-card">
+
+      <!-- BUSCADOR DE PELÍCULA -->
+      <div class="movie-search-section">
+        <div class="search-input-wrapper">
+          <span class="search-icon">🎬</span>
+          <input
+            id="movie-search-input"
+            class="movie-search-input"
+            placeholder="Buscá una película..."
+            autocomplete="off"
+          >
+          <button class="search-clear" id="search-clear" style="display:none">✕</button>
+        </div>
+        <!-- RESULTADOS -->
+        <div class="search-results" id="search-results" style="display:none"></div>
+      </div>
+
+      <!-- PELÍCULA SELECCIONADA -->
+      <div class="movie-context" id="movie-context" style="display:none">
+        <img id="ctx-poster" src="" alt="">
+        <div class="ctx-info">
+          <span class="ctx-label">Opinando sobre</span>
+          <p class="ctx-title" id="ctx-title"></p>
+          <p class="ctx-year" id="ctx-year"></p>
+        </div>
+        <button class="ctx-remove" id="ctx-remove">✕</button>
+      </div>
+
+      <textarea id="postText" placeholder="¿Qué pensás de lo que viste?" rows="3"></textarea>
+
+      <div class="post-actions">
+        <div class="stars-row">
+          <span class="star" data-value="1">★</span>
+          <span class="star" data-value="2">★</span>
+          <span class="star" data-value="3">★</span>
+          <span class="star" data-value="4">★</span>
+          <span class="star" data-value="5">★</span>
+          <span class="star" data-value="6">★</span>
+          <span class="star" data-value="7">★</span>
+        </div>
+        <div class="action-btns">
+          <button id="spoiler-btn" class="icon-btn spoiler-icon" title="Marcar spoiler">⚠</button>
+          <button class="publish-btn" onclick="crearPost()">Publicar</button>
+        </div>
+      </div>
+
+      <div class="rating-preview" id="rating-preview" style="display:none">
+        <span class="rating-preview-label">Tu nota:</span>
+        <span id="rating-preview-val"></span>
+        <span class="rating-preview-max">/7</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FILTROS -->
+  <div class="feed-header">
+    <h2 class="feed-title">Feed global</h2>
+    <div class="feed-filters">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="spoiler-free">Sin spoilers</button>
+    </div>
+  </div>
+
+  <!-- FEED -->
+  <div id="feed" class="feed-container"></div>
+
+  <!-- EMPTY STATE -->
+  <div class="empty-feed" id="empty-feed" style="display:none">
+    <p class="empty-icon">🎬</p>
+    <p class="empty-text">Todavía no hay posts.<br>¡Sé el primero en opinar!</p>
+  </div>
+
+  <!-- MODAL USERNAME -->
+  <div id="usernameModal" class="modal" style="display:none">
+    <div class="modal-content">
+      <h2>Elegí tu usuario</h2>
+      <p class="modal-sub">Así te verán en la comunidad</p>
+      <input id="usernameInput" placeholder="@tunombre">
+      <button onclick="guardarUsername()">Guardar</button>
+    </div>
+  </div>
+
+  <script type="module" src="js/post.js"></script>
+  <script type="module" src="js/univers.js"></script>
+  <script src="js/loader.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    transition: 300ms;
+}
+body {
+  background: black;
+}
+.imagen-fondo {
+    width: 100%;
+    height: 40vh;
+    background: url(https://image.tmdb.org/t/p/original/7ed0v16eQyRLwVnVi1tCFSlMc9J.jpg);
+    background-size: cover;
+    position: relative;
+    z-index: -2;
+}
+
+.degradado {
+    position: absolute;
+    width: 100%;
+    height: 40vh;
+    background: linear-gradient(
+    360deg, black, transparent);
+    z-index: -1;
+}
+.container {
+    /* background: blue; */
+    margin: 100px 0px 0px 0px;
+    display: flex;
+    justify-content: center;
+    height: 60vh;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+input#emailLogin {
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    padding: 20px;
+    border: none;
+    -webkit-text-stroke: medium;
+    background: #121111;
+    color: white;
+    letter-spacing: 1px;
+}
+
+input#passwordLogin {
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    padding: 20px;
+    border: none;
+    -webkit-text-stroke: medium;
+    background: #121111;
+    color: white;
+    letter-spacing: 1px;
+}
+div#loginCard h2, div#registerCard h2 {
+    color: white;
+    font-family: sans-serif;
+}
+
+button {
+    width: 250px;
+    height: 50px;
+    border: none;
+    background: #f95300;
+    border-radius: 43px;
+    font-size: 1.4rem;
+    font-family: sans-serif;
+    margin: 0px 0px 0px;
+    min-height: 50px;
+}
+
+p {
+    color: white;
+}
+input#emailRegister {
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    padding: 20px;
+    border: none;
+    -webkit-text-stroke: medium;
+    background: #121111;
+    color: white;
+    letter-spacing: 1px;
+}
+
+input#passwordRegister {
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    padding: 20px;
+    border: none;
+    -webkit-text-stroke: medium;
+    background: #121111;
+    color: white;
+    letter-spacing: 1px;
+}
+
+input#confirmRegister {
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    padding: 20px;
+    border: none;
+    -webkit-text-stroke: medium;
+    background: #121111;
+    color: white;
+    letter-spacing: 1px;
+}
+@media (max-height: 980px) {
+  .container {
+    margin: 0px;
+  }
+}

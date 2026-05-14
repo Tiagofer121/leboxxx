@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/inicio.css">
+    <link rel="stylesheet" href="css/general.css">
+    <title>Document</title>
+</head>
+<body>
+
+<div class="imagen-fondo">
+  <div class="degradado"></div>
+</div>
+
+
+<div class="container">
+
+  <!-- LOGIN -->
+  <div class="card" id="loginCard">
+    <h2>Iniciar sesión</h2>
+<input type="email" id="emailLogin" placeholder="Email">
+<input type="password" id="passwordLogin" placeholder="Contraseña">
+<button onclick="login()">Entrar</button>
+
+    <p onclick="showRegister()">¿No tenés cuenta? Registrate</p>
+  </div>
+
+  <!-- REGISTRO -->
+  <div class="card" id="registerCard" style="display:none;">
+    <h2>Registrarse</h2>
+<input type="email" id="emailRegister" placeholder="Email">
+<input type="password" id="passwordRegister" placeholder="Contraseña">
+<input type="password" id="confirmRegister" placeholder="Confirmar contraseña">
+<button onclick="register()">Registrarse</button>
+    <p onclick="showLogin()">¿Ya tenés cuenta? Iniciar sesión</p>
+  </div>
+
+</div>
+
+<div id="usernameModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <h2>Elegí tu usuario</h2>
+    <input id="usernameInput" placeholder="Tu nombre">
+    <button onclick="guardarUsername()">Guardar</button>
+  </div>
+</div>
+
+<script  type="module" src="js/app.js"></script>
+</body>
+</html>

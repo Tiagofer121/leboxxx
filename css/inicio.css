@@ -1,0 +1,279 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background: #141414;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+
+/* 🎬 BANNER */
+
+.banner{
+
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+
+  overflow: hidden;
+
+}
+
+
+/* 🎞️ SLIDER */
+
+.slider-track{
+
+  display: flex;
+
+  height: 100%;
+
+  transition: transform .7s ease-in-out;
+
+}
+
+.slide{
+
+  min-width: 100%;
+  height: 100%;
+
+}
+
+.slide img{
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+}
+
+
+/* 🌑 OVERLAY CINEMÁTICO */
+
+.degradado-banner{
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 2;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(20,20,20,1) 5%,
+      rgba(20,20,20,.8) 25%,
+      rgba(20,20,20,.3) 55%,
+      rgba(20,20,20,.1) 100%
+    );
+
+}
+
+
+/* 📦 CONTENIDO */
+
+.banner-content{
+
+  position: absolute;
+
+  bottom: 70px;
+  left: 60px;
+  right: 60px;
+
+  z-index: 3;
+
+  color: white;
+
+}
+
+
+/* 🎬 CONTENEDOR INFO */
+
+.banner-extra{
+
+  display: flex;
+
+  align-items: flex-end;
+
+  gap: 35px;
+
+}
+
+
+/* 🍿 POSTER */
+
+.banner-poster{
+
+  width: 220px;
+
+  border-radius: 6px;
+
+  box-shadow:
+    0 10px 40px rgba(0,0,0,.6);
+
+}
+
+
+/* 📝 INFO */
+
+.banner-meta{
+
+  max-width: 650px;
+
+}
+
+
+/* 🎬 TÍTULO */
+
+h1#banner-title{
+
+  font-size: 5rem;
+
+  font-weight: 900;
+
+  margin-bottom: 18px;
+
+  line-height: .95;
+
+  text-shadow:
+    0 4px 20px rgba(0,0,0,.6);
+
+}
+
+
+/* ⭐ RATING */
+
+.banner-rating{
+
+  font-size: 1rem;
+
+  margin-bottom: 15px;
+
+  color: #46d369;
+
+  font-weight: bold;
+
+}
+
+
+/* 📖 DESCRIPCIÓN */
+
+.banner-description{
+
+  font-size: 1.1rem;
+
+  line-height: 1.6;
+
+  color: rgba(255,255,255,.85);
+
+  margin-bottom: 25px;
+
+}
+
+
+/* 🔘 BOTÓN */
+
+button.mas-informacion{
+
+  width: 220px;
+  height: 52px;
+
+  border: none;
+
+  border-radius: 4px;
+
+  background: rgba(109,109,110,.7);
+
+  color: white;
+
+  font-size: 1rem;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: .2s;
+
+}
+
+button.mas-informacion:hover{
+
+  background: rgba(109,109,110,.4);
+
+}
+
+
+/* 📱 MOBILE */
+
+@media(max-width: 768px){
+
+  .banner{
+
+    height: 95vh;
+
+  }
+
+  .banner-content{
+
+    left: 20px;
+    right: 20px;
+    bottom: 35px;
+
+  }
+
+  .banner-extra{
+
+    align-items: flex-end;
+
+    gap: 15px;
+
+  }
+
+  .banner-poster{
+
+    width: 120px;
+
+  }
+
+  h1#banner-title{
+
+    font-size: 2.3rem;
+
+    margin-bottom: 10px;
+
+  }
+
+  .banner-rating{
+
+    font-size: .9rem;
+
+    margin-bottom: 10px;
+
+  }
+
+  .banner-description{
+
+    font-size: .92rem;
+
+    line-height: 1.5;
+
+    margin-bottom: 18px;
+
+  }
+
+  button.mas-informacion{
+
+    width: 100%;
+    height: 48px;
+
+    font-size: .95rem;
+
+  }
+
+}
