@@ -1,54 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/inicio.css">
-    <link rel="stylesheet" href="css/general.css">
-
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/inicio.css">
+  <link rel="stylesheet" href="css/general.css">
+  <title>LeBox</title>
 </head>
 <body>
 
 
-<section class="banner-populares">
 
-<div id="banner" class="banner">
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-left">
+    <span class="nav-logo">LeBox</span>
+  </div>
+  <div class="nav-center" id="nav-search-wrap">
+    <div class="search-bar" id="search-bar">
+      <span class="search-icon">&#9906;</span>
+      <input type="text" id="search-input" placeholder="Buscar películas, series...">
+      <button class="search-clear" id="search-clear">&#x2715;</button>
+    </div>
+  </div>
+  <div class="nav-right">
+    <button class="nav-icon-btn" id="search-toggle-btn" aria-label="Buscar">&#9906;</button>
+    <div class="nav-avatar" id="nav-avatar">?</div>
+  </div>
+</nav>
 
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="search-overlay">
+  <div class="search-overlay-results" id="search-results"></div>
+</div>
 
+<!-- BANNER HERO -->
+<section class="banner-section">
+  <div class="banner" id="banner">
+    <div id="slider-track" class="slider-track"></div>
     <div class="degradado-banner"></div>
-  <div id="slider-track" class="slider-track"></div>
-
-
-<div class="banner-content">
-
-  <h1 id="banner-title"></h1>
-
-  <button class="mas-informacion" id="banner-btn">
-    Ver detalles
-  </button>
-
-</div>
-
-</div>
-    
+    <div class="banner-content">
+      <div class="banner-badges" id="banner-badges"></div>
+      <h1 id="banner-title"></h1>
+      <p id="banner-description"></p>
+      <div class="banner-actions">
+        <button class="btn-primary" id="banner-btn">Ver detalles</button>
+        <button class="btn-secondary" id="banner-list-btn">+ Mi lista</button>
+      </div>
+    </div>
+    <div class="banner-dots" id="banner-dots"></div>
+    <button class="banner-arrow banner-arrow-left" id="banner-prev">&#8249;</button>
+    <button class="banner-arrow banner-arrow-right" id="banner-next">&#8250;</button>
+  </div>
 </section>
 
+<!-- CONTENIDO PRINCIPAL -->
+<main class="main-content">
 
+  <!-- CONTINUAR VIENDO (estático/demo) -->
+  <section class="row-section" id="section-continue">
+    <div class="row-header">
+      <h2 class="row-title">Seguir viendo</h2>
+    </div>
+    <div class="carousel-wrap">
+      <button class="carousel-btn carousel-btn-left">&#8249;</button>
+      <div class="carousel" id="carousel-continue"></div>
+      <button class="carousel-btn carousel-btn-right">&#8250;</button>
+    </div>
+  </section>
 
+  <!-- TENDENCIAS -->
+  <section class="row-section">
+    <div class="row-header">
+      <h2 class="row-title">Tendencias <span class="row-badge">HOY</span></h2>
+    </div>
+    <div class="carousel-wrap">
+      <button class="carousel-btn carousel-btn-left">&#8249;</button>
+      <div class="carousel" id="carousel-trending"></div>
+      <button class="carousel-btn carousel-btn-right">&#8250;</button>
+    </div>
+  </section>
 
+  <!-- MÁS VALORADAS -->
+  <section class="row-section">
+    <div class="row-header">
+      <h2 class="row-title">Mejor valoradas</h2>
+    </div>
+    <div class="carousel-wrap">
+      <button class="carousel-btn carousel-btn-left">&#8249;</button>
+      <div class="carousel" id="carousel-top"></div>
+      <button class="carousel-btn carousel-btn-right">&#8250;</button>
+    </div>
+  </section>
 
+  <!-- PROMO CARD — colección especial -->
+  <div class="promo-card" id="promo-card">
+    <div class="promo-bg" id="promo-bg"></div>
+    <div class="promo-overlay"></div>
+    <div class="promo-text">
+      <span class="promo-eyebrow">Colección destacada</span>
+      <h3 class="promo-title" id="promo-title">Cargando...</h3>
+      <p class="promo-sub" id="promo-sub"></p>
+      <button class="btn-primary promo-btn" id="promo-btn">Explorar colección</button>
+    </div>
+  </div>
 
+  <!-- ACCIÓN Y AVENTURA -->
+  <section class="row-section">
+    <div class="row-header">
+      <h2 class="row-title">Acción y aventura</h2>
+    </div>
+    <div class="carousel-wrap">
+      <button class="carousel-btn carousel-btn-left">&#8249;</button>
+      <div class="carousel" id="carousel-action"></div>
+      <button class="carousel-btn carousel-btn-right">&#8250;</button>
+    </div>
+  </section>
 
+  <!-- CIENCIA FICCIÓN -->
+  <section class="row-section">
+    <div class="row-header">
+      <h2 class="row-title">Ciencia ficción</h2>
+    </div>
+    <div class="carousel-wrap">
+      <button class="carousel-btn carousel-btn-left">&#8249;</button>
+      <div class="carousel" id="carousel-scifi"></div>
+      <button class="carousel-btn carousel-btn-right">&#8250;</button>
+    </div>
+  </section>
 
+  <!-- TOP 10 RANKING -->
+  <section class="row-section">
+    <div class="row-header">
+      <h2 class="row-title">Top 10 esta semana</h2>
+    </div>
+    <div class="carousel-wrap">
+      <button class="carousel-btn carousel-btn-left">&#8249;</button>
+      <div class="carousel carousel-ranked" id="carousel-ranked"></div>
+      <button class="carousel-btn carousel-btn-right">&#8250;</button>
+    </div>
+  </section>
 
+  <!-- TERROR -->
+  <section class="row-section">
+    <div class="row-header">
+      <h2 class="row-title">Terror</h2>
+    </div>
+    <div class="carousel-wrap">
+      <button class="carousel-btn carousel-btn-left">&#8249;</button>
+      <div class="carousel" id="carousel-horror"></div>
+      <button class="carousel-btn carousel-btn-right">&#8250;</button>
+    </div>
+  </section>
 
+  <!-- DRAMA -->
+  <section class="row-section">
+    <div class="row-header">
+      <h2 class="row-title">Drama</h2>
+    </div>
+    <div class="carousel-wrap">
+      <button class="carousel-btn carousel-btn-left">&#8249;</button>
+      <div class="carousel" id="carousel-drama"></div>
+      <button class="carousel-btn carousel-btn-right">&#8250;</button>
+    </div>
+  </section>
 
+  <!-- ANIMACIÓN -->
+  <section class="row-section">
+    <div class="row-header">
+      <h2 class="row-title">Animación</h2>
+    </div>
+    <div class="carousel-wrap">
+      <button class="carousel-btn carousel-btn-left">&#8249;</button>
+      <div class="carousel" id="carousel-animation"></div>
+      <button class="carousel-btn carousel-btn-right">&#8250;</button>
+    </div>
+  </section>
 
+</main>
 
+<!-- MODAL DETALLE RÁPIDO -->
+<div class="quick-modal" id="quick-modal">
+  <div class="quick-modal-backdrop" id="quick-modal-backdrop"></div>
+  <div class="quick-modal-card" id="quick-modal-card">
+    <button class="quick-modal-close" id="quick-modal-close">&#x2715;</button>
+    <div class="quick-modal-hero">
+      <img id="qm-banner" src="" alt="">
+      <div class="quick-modal-hero-grad"></div>
+    </div>
+    <div class="quick-modal-body">
+      <h2 id="qm-title"></h2>
+      <div class="qm-meta">
+        <span id="qm-year"></span>
+        <span class="qm-dot">·</span>
+        <span id="qm-rating" class="qm-rating"></span>
+        <span class="qm-dot">·</span>
+        <span id="qm-genres"></span>
+      </div>
+      <p id="qm-overview"></p>
+      <div class="qm-actions">
+        <button class="btn-primary" id="qm-go-btn">Ver página completa</button>
+        <button class="btn-secondary" id="qm-list-btn">+ Mi lista</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <a href="post.html">post</a>
-    <script type="module" src="js/univers.js"></script>
-    <script type="module" src="js/inicio-banner.js"></script>
+<script src="js/loader.js"></script>
+<script type="module" src="js/univers.js"></script>
+<script type="module" src="js/inicio-banner.js"></script>
 </body>
 </html>
